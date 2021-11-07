@@ -159,7 +159,7 @@ def train(data, epochs, batch_size=1, gen_lr=1e-4, disc_lr=1e-4, epoch_offset=0)
         print('Weights saved in ' + checkpoint_prefix)
 
         # Callback at the end of the epoch for the DataGenerator
-        data.on_epoch_end()
+        data.shuffle()
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()

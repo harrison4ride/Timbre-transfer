@@ -71,7 +71,7 @@ def inverse_transform(mag, phase, nfft=1024, normalize=True, crop_hf=True):
     return audio
 
 class DataGenerator(tf.keras.utils.Sequence):
-    def __init__(self, origin, target, base_path, batch_size=1, img_dim=(256,256,1), shuffle=True):
+    def __init__(self, origin, target, base_path, batch_size=1, img_dim=(256,256,1)):
         self.img_dim = img_dim
         self.batch_size = batch_size
 
@@ -82,7 +82,6 @@ class DataGenerator(tf.keras.utils.Sequence):
         self.filenames = self.__get_filenames()
         assert len(self.filenames) > 0, 'Filenames is empty' 
 
-        self.shuffle = shuffle
         self.on_epoch_end()
 
     def __len__(self):
@@ -128,7 +127,5 @@ class DataGenerator(tf.keras.utils.Sequence):
             return origin_filenames
         return []
 
-    def on_epoch_end(self):
-        'Updates indexes after each epoch'
-        if self.shuffle:
-            np.random.shuffle(self.filenames)
+    def shuffle(self):
+        np.random.shuffle(self.filenames)
